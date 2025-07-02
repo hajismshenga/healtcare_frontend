@@ -21,7 +21,7 @@ const PatientLogin = () => {
       // Store patient info in localStorage
       localStorage.setItem('patientId', patientId);
       localStorage.setItem('patientToken', 'patient_' + patientId);
-      navigate('/patient/dashboard');
+      navigate('/patient');
     } catch (err) {
       setError(err.message);
     }

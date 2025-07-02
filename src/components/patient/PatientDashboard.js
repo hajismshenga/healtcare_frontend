@@ -4,6 +4,7 @@ import './styles/PatientStyles.css';
 
 const PatientDashboard = () => {
   const [activeSection, setActiveSection] = useState('medical-history');
+  const [secondOpinionRequests, setSecondOpinionRequests] = useState([]);
   const [patientInfo, setPatientInfo] = useState({
     name: 'John Doe',
     age: '35',
@@ -14,25 +15,6 @@ const PatientDashboard = () => {
     medicalHistory: 'Hypertension, Diabetes',
     allergies: 'Peanuts, Penicillin'
   });
-
-  const [appointments, setAppointments] = useState([
-    {
-      id: 'A1',
-      doctor: 'Dr. Smith',
-      date: '2025-06-25',
-      time: '10:00 AM',
-      status: 'Upcoming',
-      reason: 'Follow-up consultation'
-    },
-    {
-      id: 'A2',
-      doctor: 'Dr. Johnson',
-      date: '2025-06-28',
-      time: '2:30 PM',
-      status: 'Upcoming',
-      reason: 'Blood Test Results'
-    }
-  ]);
 
   const [prescriptions, setPrescriptions] = useState([
     {
@@ -82,9 +64,10 @@ const PatientDashboard = () => {
 
   const [secondOpinionRequest, setSecondOpinionRequest] = useState({
     doctor: '',
+    specialty: '',
     reason: '',
-    medicalHistory: '',
-    currentMedications: ''
+    medicalHistory: patientInfo.medicalHistory,
+    currentMedications: prescriptions[0]?.medications?.map(med => med.name).join(', ') || ''
   });
 
   const handleSecondOpinion = (doctor) => {
@@ -97,15 +80,7 @@ const PatientDashboard = () => {
     });
   };
 
-  const navigate = useNavigate();
 
-  // Check authentication
-  useEffect(() => {
-    const patientToken = localStorage.getItem('patientToken');
-    if (!patientToken) {
-      navigate('/patient');
-    }
-  }, [navigate]);
 
   // Mock data
   useEffect(() => {
@@ -130,20 +105,26 @@ const PatientDashboard = () => {
       }
     ];
 
-    const mockAppointments = [
+    const mockSecondOpinions = [
       {
-        id: 'A1',
-        doctor: 'Dr. John Smith',
+        id: 'SO1',
+        doctor: 'Dr. Sarah Johnson',
+        specialty: 'Cardiology',
+        reason: 'Second opinion on heart condition',
+        status: 'Pending',
         date: '2025-06-25',
-        time: '10:00 AM',
-        status: 'Confirmed'
+        medicalHistory: 'Hypertension, Diabetes',
+        currentMedications: 'Metformin, Amlodipine'
       },
       {
-        id: 'A2',
-        doctor: 'Dr. Sarah Johnson',
+        id: 'SO2',
+        doctor: 'Dr. Michael Smith',
+        specialty: 'Endocrinology',
+        reason: 'Second opinion on diabetes treatment',
+        status: 'Completed',
         date: '2025-06-28',
-        time: '2:30 PM',
-        status: 'Scheduled'
+        medicalHistory: 'Hypertension, Diabetes',
+        currentMedications: 'Metformin, Amlodipine'
       }
     ];
 
@@ -176,7 +157,9 @@ const PatientDashboard = () => {
     ];
 
     setDoctors(mockDoctors);
-    setAppointments(mockAppointments);
+
+    setSecondOpinionRequests(mockSecondOpinions);
+
     setPrescriptions(mockPrescriptions);
     setLabResults(mockLabResults);
   }, []);
@@ -193,7 +176,6 @@ const PatientDashboard = () => {
   return (
     <div className="patient-dashboard">
       <div className="dashboard-header">
-        <h1>Patient Dashboard</h1>
         <div className="nav-buttons">
           <button
             className={`nav-btn ${activeSection === 'medical-history' ? 'active' : ''}`}
@@ -202,16 +184,10 @@ const PatientDashboard = () => {
             Medical History
           </button>
           <button
-            className={`nav-btn ${activeSection === 'appointments' ? 'active' : ''}`}
-            onClick={() => setActiveSection('appointments')}
+            className={`nav-btn ${activeSection === 'second-opinion' ? 'active' : ''}`}
+            onClick={() => setActiveSection('second-opinion')}
           >
-            Appointments
-          </button>
-          <button
-            className={`nav-btn ${activeSection === 'prescriptions' ? 'active' : ''}`}
-            onClick={() => setActiveSection('prescriptions')}
-          >
-            Prescriptions
+            Second Opinion
           </button>
           <button
             className={`nav-btn ${activeSection === 'lab-results' ? 'active' : ''}`}
@@ -252,65 +228,21 @@ const PatientDashboard = () => {
           </div>
         )}
 
-        {activeSection === 'appointments' && (
-          <div className="appointments">
-            <h2>Appointments</h2>
-            <div className="appointments-list">
-              {appointments.map((appointment) => (
-                <div key={appointment.id} className="appointment-card">
-                  <div className="appointment-info">
-                    <h3>{appointment.doctor}</h3>
-                    <p><strong>Date:</strong> {appointment.date}</p>
-                    <p><strong>Time:</strong> {appointment.time}</p>
-                    <p><strong>Status:</strong> {appointment.status}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {activeSection === 'prescriptions' && (
-          <div className="prescriptions">
-            <h2>Prescriptions</h2>
-            <div className="prescriptions-list">
-              {prescriptions.map((prescription) => (
-                <div key={prescription.id} className="prescription-card">
-                  <div className="prescription-info">
-                    <h3>Prescribed by: {prescription.doctor}</h3>
-                    <div className="medications-list">
-                      {prescription.medications.map((med, index) => (
-                        <div key={index} className="medication-item">
-                          <h4>{med.name}</h4>
-                          <p><strong>Dosage:</strong> {med.dosage}</p>
-                          <p><strong>Frequency:</strong> {med.frequency}</p>
-                        </div>
-                      ))}
-                    </div>
-                    <p><strong>Instructions:</strong> {prescription.instructions}</p>
-                    <p><strong>Date Prescribed:</strong> {prescription.date}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
         {activeSection === 'lab-results' && (
           <div className="lab-results">
             <h2>Lab Results</h2>
             <div className="results-list">
               {labResults.map((result) => (
                 <div key={result.id} className="result-card">
-                  <div className="result-info">
-                    <h3>{result.testName}</h3>
-                    <p><strong>Date:</strong> {result.date}</p>
-                    <p><strong>Status:</strong> {result.status}</p>
-                    <div className="result-details">
-                      {Object.entries(result.results).map(([key, value]) => (
-                        <p key={key}>{key}: {value}</p>
-                      ))}
-                    </div>
+                  <h3>{result.test}</h3>
+                  <p><strong>Date:</strong> {result.date}</p>
+                  <p><strong>Status:</strong> {result.status}</p>
+                  <div className="result-details">
+                    {result.results.map((param) => (
+                      <p key={param.parameter}>
+                        {param.parameter}: {param.value}{param.unit} ({param.reference})
+                      </p>
+                    ))}
                   </div>
                 </div>
               ))}
@@ -318,36 +250,89 @@ const PatientDashboard = () => {
           </div>
         )}
 
-        <div className="second-opinion-section">
-          <h2>Request Second Opinion</h2>
-          <div className="doctors-list">
-            {doctors.map((doctor) => (
-              <div key={doctor.id} className="doctor-card">
-                <div className="doctor-info">
-                  <h3>{doctor.name}</h3>
-                  <p><strong>Specialty:</strong> {doctor.specialty}</p>
-                  <p><strong>Experience:</strong> {doctor.experience}</p>
-                  <p><strong>Rating:</strong> {doctor.rating} ⭐</p>
-                  <p><strong>Availability:</strong> {doctor.availability}</p>
+        {activeSection === 'second-opinion' && (
+          <div className="second-opinion">
+            <h2>Second Opinion Requests</h2>
+            <div className="second-opinion-list">
+              {secondOpinionRequests.map((request) => (
+                <div key={request.id} className="second-opinion-card">
+                  <div className="second-opinion-details">
+                    <p><strong>Doctor:</strong> {request.doctor}</p>
+                    <p><strong>Specialty:</strong> {request.specialty}</p>
+                    <p><strong>Reason:</strong> {request.reason}</p>
+                    <p><strong>Status:</strong> {request.status}</p>
+                    <p><strong>Requested On:</strong> {request.date}</p>
+                    <p><strong>Medical History:</strong> {request.medicalHistory}</p>
+                    <p><strong>Current Medications:</strong> {request.currentMedications}</p>
+                  </div>
                 </div>
-                <div className="doctor-actions">
-                  <button
-                    className="btn-primary"
-                    onClick={() => handleRequestOpinion(doctor)}
+              ))}
+            </div>
+            <div className="second-opinion-form">
+              <h3>Request Second Opinion</h3>
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                const newRequest = {
+                  id: Date.now().toString(),
+                  doctor: secondOpinionRequest.doctor,
+                  specialty: secondOpinionRequest.specialty,
+                  reason: secondOpinionRequest.reason,
+                  medicalHistory: secondOpinionRequest.medicalHistory,
+                  currentMedications: secondOpinionRequest.currentMedications,
+                  status: 'Pending',
+                  date: new Date().toISOString().split('T')[0]
+                };
+                setSecondOpinionRequests([...secondOpinionRequests, newRequest]);
+                setSecondOpinionRequest({
+                  doctor: '',
+                  specialty: '',
+                  reason: '',
+                  medicalHistory: '',
+                  currentMedications: ''
+                });
+              }}>
+                <div className="form-group">
+                  <label htmlFor="doctor">Select Doctor</label>
+                  <select
+                    id="doctor"
+                    value={secondOpinionRequest.doctor}
+                    onChange={(e) => {
+                      const selectedDoctor = doctors.find(d => d.name === e.target.value);
+                      setSecondOpinionRequest({
+                        ...secondOpinionRequest,
+                        doctor: e.target.value,
+                        specialty: selectedDoctor?.specialty || ''
+                      });
+                    }}
+                    required
                   >
-                    Request Opinion
-                  </button>
-                  <button
-                    className="btn-secondary"
-                    onClick={() => handleViewCV(doctor.cv)}
-                  >
-                    View CV
-                  </button>
+                    <option value="">Select a doctor</option>
+                    {doctors.map((doctor) => (
+                      <option key={doctor.id} value={doctor.name}>
+                        {doctor.name} ({doctor.specialty})
+                      </option>
+                    ))}
+                  </select>
                 </div>
-              </div>
-            ))}
+                <div className="form-group">
+                  <label htmlFor="reason">Reason for Second Opinion</label>
+                  <textarea
+                    id="reason"
+                    value={secondOpinionRequest.reason}
+                    onChange={(e) => setSecondOpinionRequest({
+                      ...secondOpinionRequest,
+                      reason: e.target.value
+                    })}
+                    required
+                  />
+                </div>
+                <button type="submit" className="primary-button">
+                  Submit Request
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

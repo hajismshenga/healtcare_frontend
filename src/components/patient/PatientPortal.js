@@ -25,42 +25,15 @@ const PatientPortal = () => {
             >
               <Person sx={{ fontSize: 40, mb: 2 }} />
               <Typography variant="h6" gutterBottom>
-                Personal Information
+                Medical History
               </Typography>
               <Button
                 variant="outlined"
                 fullWidth
                 sx={{ mt: 2 }}
               >
-                <Link to="/patient/profile" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  View Profile
-                </Link>
-              </Button>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12} md={3}>
-            <Card 
-              sx={{ 
-                p: 3,
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <MedicalServices sx={{ fontSize: 40, mb: 2 }} />
-              <Typography variant="h6" gutterBottom>
-                Medical Records
-              </Typography>
-              <Button
-                variant="outlined"
-                fullWidth
-                sx={{ mt: 2 }}
-              >
-                <Link to="/patient/records" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  View Records
+                <Link to="/patient/medical-history" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  View Medical History
                 </Link>
               </Button>
             </Card>
@@ -79,15 +52,15 @@ const PatientPortal = () => {
             >
               <Receipt sx={{ fontSize: 40, mb: 2 }} />
               <Typography variant="h6" gutterBottom>
-                Test Results
+                Prescriptions
               </Typography>
               <Button
                 variant="outlined"
                 fullWidth
                 sx={{ mt: 2 }}
               >
-                <Link to="/patient/results" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  View Results
+                <Link to="/patient/prescriptions" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  View Prescriptions
                 </Link>
               </Button>
             </Card>
@@ -106,15 +79,42 @@ const PatientPortal = () => {
             >
               <LocalHospital sx={{ fontSize: 40, mb: 2 }} />
               <Typography variant="h6" gutterBottom>
-                Appointments
+                Lab Results
               </Typography>
               <Button
                 variant="outlined"
                 fullWidth
                 sx={{ mt: 2 }}
               >
-                <Link to="/patient/appointments" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  View Appointments
+                <Link to="/patient/lab-results" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  View Lab Results
+                </Link>
+              </Button>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} md={3}>
+            <Card 
+              sx={{ 
+                p: 3,
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <MedicalServices sx={{ fontSize: 40, mb: 2 }} />
+              <Typography variant="h6" gutterBottom>
+                Second Opinion
+              </Typography>
+              <Button
+                variant="outlined"
+                fullWidth
+                sx={{ mt: 2 }}
+              >
+                <Link to="/patient/second-opinion" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  Request Second Opinion
                 </Link>
               </Button>
             </Card>

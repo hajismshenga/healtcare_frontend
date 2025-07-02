@@ -1,249 +1,117 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, Box, Typography, IconButton } from '@mui/material';
+import { ExpandLess, ExpandMore, Person, LocalHospital, Receipt, Settings, AccountCircle } from '@mui/icons-material';
 import './styles/DoctorStyles.css';
 import PatientManagement from './PatientManagement';
-import SecondOpinion from './SecondOpinion';
 import LabTests from './LabTests';
+import Prescriptions from './Prescriptions';
 import DoctorProfile from './DoctorProfile';
-import PatientNavigation from './PatientNavigation';
 
 const DoctorDashboard = () => {
-  const [activeSection, setActiveSection] = useState('patients');
-  const [patients, setPatients] = useState([]);
-  const [newPatient, setNewPatient] = useState({
-    name: '',
-    age: '',
-    gender: '',
-    contact: '',
-    medicalHistory: '',
-    diagnosis: '',
-    treatmentPlan: ''
-  });
-  const [selectedPatient, setSelectedPatient] = useState(null);
-  const [prescriptions, setPrescriptions] = useState([]);
-  const [labRequests, setLabRequests] = useState([]);
-  const navigate = useNavigate();
+  const [activeSection, setActiveSection] = useState('Patient Management');
+  const [open, setOpen] = useState(true);
 
-  // Check authentication
-  useEffect(() => {
-    const doctorToken = localStorage.getItem('doctorToken');
-    if (!doctorToken) {
-      navigate('/doctor');
-    }
-  }, [navigate]);
-
-  // Mock data
-  useEffect(() => {
-    const mockPatients = [
-      {
-        id: 'P1',
-        name: 'John Doe',
-        age: '35',
-        gender: 'Male',
-        contact: '123-456-7890',
-        medicalHistory: 'Hypertension, Diabetes',
-        diagnosis: 'Type 2 Diabetes',
-        treatmentPlan: 'Metformin 500mg, lifestyle changes'
-      },
-      {
-        id: 'P2',
-        name: 'Jane Smith',
-        age: '45',
-        gender: 'Female',
-        contact: '987-654-3210',
-        medicalHistory: 'Heart Disease, High Cholesterol',
-        diagnosis: 'Coronary Artery Disease',
-        treatmentPlan: 'Atorvastatin 20mg, beta blockers'
-      }
-    ];
-
-    const mockPrescriptions = [
-      {
-        id: 'PR1',
-        patientId: 'P1',
-        medications: [
-          { name: 'Metformin', dosage: '500mg', frequency: 'twice daily' },
-          { name: 'Amlodipine', dosage: '5mg', frequency: 'daily' }
-        ],
-        date: '2025-06-22',
-        instructions: 'Take with food, monitor blood pressure'
-      }
-    ];
-
-    const mockLabRequests = [
-      {
-        id: 'LR1',
-        patientId: 'P1',
-        tests: [
-          { name: 'Blood Sugar Test', status: 'Pending' },
-          { name: 'Cholesterol Test', status: 'Completed' }
-        ],
-        date: '2025-06-22',
-        priority: 'High'
-      }
-    ];
-
-    setPatients(mockPatients);
-    setPrescriptions(mockPrescriptions);
-    setLabRequests(mockLabRequests);
-  }, []);
-
-  const handleAddPatient = (e) => {
-    e.preventDefault();
-    const newId = `P${Date.now()}`;
-    const newPatientData = { id: newId, ...newPatient };
-    setPatients([...patients, newPatientData]);
-    setNewPatient({
-      name: '',
-      age: '',
-      gender: '',
-      contact: '',
-      medicalHistory: '',
-      diagnosis: '',
-      treatmentPlan: ''
-    });
+  const handleDrawerOpen = () => {
+    setOpen(true);
   };
 
-  const handleUpdateDiagnosis = (patientId, diagnosis, treatment) => {
-    const updatedPatients = patients.map(patient => 
-      patient.id === patientId ? { ...patient, diagnosis, treatmentPlan: treatment } : patient
-    );
-    setPatients(updatedPatients);
+  const handleDrawerClose = () => {
+    setOpen(false);
   };
 
-  const handleLabRequest = (patientId, test) => {
-    const newRequest = {
-      id: `LR${Date.now()}`,
-      patientId,
-      tests: [{ name: test, status: 'Pending' }],
-      date: new Date().toISOString().split('T')[0],
-      priority: 'Normal'
-    };
-    setLabRequests([...labRequests, newRequest]);
+  const handleLogout = () => {
+    localStorage.removeItem('doctorToken');
+    window.location.href = '/doctor/login';
   };
 
   return (
-    <div className="doctor-dashboard">
-      <div className="top-bar">
-        <DoctorProfile />
-      </div>
-      <div className="main-content">
-        <div className="dashboard-sections">
-          <div className="profile-section">
-            <div className="profile-picture">
-              <img 
-                src="https://via.placeholder.com/40" 
-                alt="Doctor Profile" 
-              />
-              <div className="profile-info">
-                <h3>Dr. Test</h3>
-                <p>Medical Specialist</p>
-              </div>
-            </div>
-          </div>
+    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+      {/* Navigation Drawer */}
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: open ? 240 : 72,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: open ? 240 : 72,
+            boxSizing: 'border-box',
+            borderRight: 'none',
+            backgroundColor: '#1976d2',
+            color: 'white',
+          },
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            p: 2,
+            bgcolor: '#1565c0',
+          }}
+          onClick={handleDrawerClose}
+        >
+          <Typography variant="h6" noWrap component="div">
+            {open ? 'Doctor Dashboard' : ''}
+          </Typography>
+        </Box>
+        <List>
+          <ListItem button onClick={() => setActiveSection('Patient Management')} sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+            <ListItemIcon>
+              <Person sx={{ color: 'white' }} />
+            </ListItemIcon>
+            <ListItemText primary="Patient Management" sx={{ display: open ? 'block' : 'none', color: 'white' }} />
+          </ListItem>
+          <ListItem button onClick={() => setActiveSection('Lab Tests')} sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+            <ListItemIcon>
+              <LocalHospital sx={{ color: 'white' }} />
+            </ListItemIcon>
+            <ListItemText primary="Lab Tests" sx={{ display: open ? 'block' : 'none', color: 'white' }} />
+          </ListItem>
+          <ListItem button onClick={() => setActiveSection('Prescriptions')} sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+            <ListItemIcon>
+              <Receipt sx={{ color: 'white' }} />
+            </ListItemIcon>
+            <ListItemText primary="Prescriptions" sx={{ display: open ? 'block' : 'none', color: 'white' }} />
+          </ListItem>
+          <ListItem button onClick={() => setActiveSection('Profile')} sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+            <ListItemIcon>
+              <AccountCircle sx={{ color: 'white' }} />
+            </ListItemIcon>
+            <ListItemText primary="Profile" sx={{ display: open ? 'block' : 'none', color: 'white' }} />
+          </ListItem>
+          <ListItem button onClick={handleLogout} sx={{ display: 'flex', alignItems: 'center', mt: 'auto' }}>
+            <ListItemIcon>
+              <Settings sx={{ color: 'white' }} />
+            </ListItemIcon>
+            <ListItemText primary="Settings" sx={{ display: open ? 'block' : 'none', color: 'white' }} />
+          </ListItem>
+        </List>
+      </Drawer>
 
-          <div className="nav-menu">
-            <button
-              className={`nav-item ${activeSection === 'patients' ? 'active' : ''}`}
-              onClick={() => setActiveSection('patients')}
-            >
-              <i className="fas fa-user-md"></i>
-              Patient Information
-            </button>
-            <button
-              className={`nav-item ${activeSection === 'second-opinion' ? 'active' : ''}`}
-              onClick={() => setActiveSection('second-opinion')}
-            >
-              <i className="fas fa-comments"></i>
-              Second Opinion
-            </button>
-            <button
-              className={`nav-item ${activeSection === 'lab-tests' ? 'active' : ''}`}
-              onClick={() => setActiveSection('lab-tests')}
-            >
-              <i className="fas fa-flask"></i>
-              Lab Tests
-            </button>
-            <button
-              className={`nav-item ${activeSection === 'prescriptions' ? 'active' : ''}`}
-              onClick={() => setActiveSection('prescriptions')}
-            >
-              <i className="fas fa-prescription-bottle"></i>
-              Prescriptions
-            </button>
-          </div>
-        </div>
+      {/* Main Content */}
+      <Box sx={{ flexGrow: 1, p: 3 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+          <IconButton onClick={handleDrawerOpen}>
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </IconButton>
+        </Box>
 
-        <div className="content-header">
-          <h2>{
-            activeSection === 'patients' ? 'Patient Information' :
-            activeSection === 'second-opinion' ? 'Second Opinion Requests' :
-            activeSection === 'lab-tests' ? 'Lab Tests' :
-            'Prescriptions'
-          }</h2>
-        </div>
-        <div className="content-section">
-          {activeSection === 'patients' && (
-            <div className="patients-section">
-              <PatientNavigation />
-              <PatientManagement />
-            </div>
-          )}
-          {activeSection === 'second-opinion' && <SecondOpinion />} 
-          {activeSection === 'lab-tests' && (
-            <div className="lab-tests">
-              <h3>Lab Test Requests</h3>
-              <div className="lab-requests-list">
-                {labRequests.map((request) => (
-                  <div key={request.id} className="lab-request-card">
-                    <div className="request-info">
-                      <h4>Patient: {patients.find(p => p.id === request.patientId)?.name}</h4>
-                      <p><strong>Date:</strong> {request.date}</p>
-                      <p><strong>Priority:</strong> {request.priority}</p>
-                      <div className="test-list">
-                        {request.tests.map((test, index) => (
-                          <div key={index} className="test-item">
-                            <p>{test.name}</p>
-                            <p className="test-status">{test.status}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {activeSection === 'prescriptions' && (
-            <div className="prescriptions">
-              <h3>Prescriptions</h3>
-              <div className="prescriptions-list">
-                {prescriptions.map((prescription) => (
-                  <div key={prescription.id} className="prescription-card">
-                    <div className="prescription-info">
-                      <h4>Patient: {patients.find(p => p.id === prescription.patientId)?.name}</h4>
-                      <p><strong>Date:</strong> {prescription.date}</p>
-                      <div className="medications-list">
-                        {prescription.medications.map((med, index) => (
-                          <div key={index} className="medication-item">
-                            <h5>{med.name}</h5>
-                            <p><strong>Dosage:</strong> {med.dosage}</p>
-                            <p><strong>Frequency:</strong> {med.frequency}</p>
-                          </div>
-                        ))}
-                      </div>
-                      <p><strong>Instructions:</strong> {prescription.instructions}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    <DoctorProfile />
-    </div>
+        {/* Content Area */}
+        <Box sx={{ mt: 2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+            <Typography variant="h5">{activeSection}</Typography>
+          </Box>
+          
+          <Box sx={{ p: 3, bgcolor: 'background.paper', borderRadius: 1 }}>
+            {activeSection === 'Patient Management' && <PatientManagement />}
+            {activeSection === 'Lab Tests' && <LabTests />}
+            {activeSection === 'Prescriptions' && <Prescriptions />}
+            {activeSection === 'Profile' && <DoctorProfile />}
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
