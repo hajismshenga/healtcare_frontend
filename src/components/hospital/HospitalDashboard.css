@@ -1,0 +1,90 @@
+/* HospitalDashboard.css - Bold, interactive, animated dashboard */
+.hospital-dashboard {
+  max-width: 900px;
+  margin: 60px auto 0 auto;
+  padding: 64px 48px 56px 48px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #fff 100%);
+  border-radius: 36px;
+  box-shadow: 0 16px 64px 0 rgba(44, 62, 80, 0.18);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  text-align: center;
+  transition: transform 0.15s cubic-bezier(.36,.07,.19,.97), box-shadow 0.2s;
+  will-change: transform;
+}
+
+.hospital-dashboard:hover {
+  animation: shake 0.45s cubic-bezier(.36,.07,.19,.97) both;
+  box-shadow: 0 24px 90px 0 rgba(44, 62, 80, 0.25);
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
+  40%, 60% { transform: translate3d(8px, 0, 0); }
+}
+
+.hospital-dashboard h2 {
+  color: #1565c0;
+  font-weight: 900;
+  margin-bottom: 28px;
+  font-size: 2.8rem;
+  letter-spacing: 1.3px;
+  text-shadow: 0 2px 8px rgba(33,150,243,0.07);
+}
+
+.hospital-dashboard p {
+  color: #374151;
+  font-size: 1.35rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.dashboard-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 36px;
+  justify-content: center;
+  margin-top: 36px;
+}
+
+.btn-primary {
+  min-width: 220px;
+  background: linear-gradient(90deg, #1976d2 0%, #21cbf3 100%);
+  color: #fff;
+  border: none;
+  border-radius: 18px;
+  padding: 22px 0;
+  font-size: 1.45rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 24px 0 rgba(33, 150, 243, 0.13);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+  outline: none;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background: linear-gradient(90deg, #0d47a1 0%, #21cbf3 100%);
+  box-shadow: 0 8px 32px 0 rgba(33, 150, 243, 0.23);
+  transform: scale(1.07) rotate(-2deg);
+}
+
+@media (max-width: 1000px) {
+  .hospital-dashboard {
+    padding: 28px 3vw 28px 3vw;
+    max-width: 99vw;
+  }
+  .dashboard-actions {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .btn-primary {
+    min-width: 0;
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 14px 0;
+  }
+  .hospital-dashboard h2 {
+    font-size: 2rem;
+  }
+}

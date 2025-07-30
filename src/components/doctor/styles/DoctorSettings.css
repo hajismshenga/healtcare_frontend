@@ -1,0 +1,83 @@
+/* Beautiful Doctor Settings Styles */
+.doctor-settings-container {
+  max-width: 430px;
+  margin: 3rem auto;
+  padding: 2.5rem 2rem 2rem 2rem;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(44, 62, 80, 0.13);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.doctor-settings-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1976d2;
+  margin-bottom: 1.7rem;
+}
+
+.doctor-settings-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+.doctor-settings-label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #222a35;
+}
+
+.doctor-settings-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid #c7d7eb;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  outline: none;
+  transition: border 0.2s;
+  background: #f7faff;
+}
+.doctor-settings-input:focus {
+  border-color: #1976d2;
+  background: #e3f0ff;
+}
+
+.doctor-settings-message {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.doctor-settings-message.success {
+  color: #388e3c;
+}
+.doctor-settings-message.error {
+  color: #d32f2f;
+}
+
+.doctor-settings-submit {
+  width: 100%;
+  padding: 0.85rem 0;
+  background: #1976d2;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.08rem;
+  cursor: pointer;
+  margin-top: 0.7rem;
+  transition: background 0.2s;
+}
+.doctor-settings-submit:hover {
+  background: #1251a3;
+}
+
+@media (max-width: 600px) {
+  .doctor-settings-container {
+    padding: 1.3rem 0.5rem;
+    margin: 1.5rem 0.2rem;
+  }
+}

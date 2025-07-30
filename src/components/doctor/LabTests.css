@@ -1,0 +1,133 @@
+/* Best CSS for LabTests component - modern, clean, responsive */
+
+.lab-tests-container {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 32px;
+  margin: 32px auto;
+  max-width: 900px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.lab-tests-container h2, .lab-tests-container h3 {
+  color: #1a237e;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.lab-tests-container form, .lab-tests-container .view-results {
+  margin-bottom: 36px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #303f9f;
+}
+
+input[type="text"], textarea {
+  padding: 8px 12px;
+  border: 1px solid #bdbdbd;
+  border-radius: 6px;
+  width: 100%;
+  font-size: 1rem;
+  background: #f5f7fa;
+  transition: border 0.2s;
+}
+input[type="text"]:focus, textarea:focus {
+  border-color: #3949ab;
+  outline: none;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #3949ab 0%, #1976d2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background 0.2s;
+}
+.btn-primary:hover {
+  background: linear-gradient(90deg, #1976d2 0%, #3949ab 100%);
+}
+
+.btn-secondary {
+  background: #fff;
+  color: #3949ab;
+  border: 1px solid #3949ab;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-secondary:hover {
+  background: #e3eafc;
+  color: #1a237e;
+}
+
+.btn-danger {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 16px;
+  font-weight: 600;
+  font-size: 0.98rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-danger:hover {
+  background: #b71c1c;
+}
+
+.results-table {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 18px;
+}
+
+.results-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fafbfc;
+}
+
+.results-table th, .results-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.results-table th {
+  background: #e3eafc;
+  color: #1a237e;
+  font-weight: 700;
+}
+
+.results-table tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 700px) {
+  .lab-tests-container {
+    padding: 10px;
+  }
+  .results-table th, .results-table td {
+    padding: 8px 4px;
+    font-size: 0.95rem;
+  }
+}
