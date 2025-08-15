@@ -1,124 +1,612 @@
-/* Welcome.css - Bold, animated, beautiful landing page with shake effect buttons */
+/* Modern Healthcare Welcome Page Design with Animated Background */
+
+/* Welcome Container */
 .welcome-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #e3f2fd 0%, #fff 100%);
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  padding-top: 40px;
+  padding: calc(var(--space-20) + 20px) var(--space-6) var(--space-8);
+  position: relative;
+  overflow: hidden;
 }
 
+/* Enhanced Animated Background Elements */
+.welcome-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 60% 60%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  animation: backgroundShift 25s ease-in-out infinite;
+}
+
+/* Enhanced Floating Particles with Texture */
+.welcome-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(1px 1px at 25px 35px, rgba(59, 130, 246, 0.4), transparent),
+    radial-gradient(1px 1px at 45px 75px, rgba(34, 197, 94, 0.4), transparent),
+    radial-gradient(1px 1px at 95px 45px, rgba(139, 92, 246, 0.4), transparent),
+    radial-gradient(1px 1px at 135px 85px, rgba(59, 130, 246, 0.4), transparent),
+    radial-gradient(1px 1px at 165px 35px, rgba(34, 197, 94, 0.4), transparent),
+    radial-gradient(1px 1px at 195px 75px, rgba(236, 72, 153, 0.4), transparent),
+    radial-gradient(1px 1px at 225px 45px, rgba(59, 130, 246, 0.4), transparent),
+    radial-gradient(1px 1px at 255px 85px, rgba(34, 197, 94, 0.4), transparent),
+    radial-gradient(1px 1px at 285px 35px, rgba(139, 92, 246, 0.4), transparent),
+    radial-gradient(1px 1px at 315px 75px, rgba(236, 72, 153, 0.4), transparent);
+  background-repeat: repeat;
+  background-size: 350px 120px;
+  animation: particleFloat 20s linear infinite;
+  pointer-events: none;
+}
+
+/* Additional Texture Layer */
+.welcome-container .texture-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(59, 130, 246, 0.02) 2px,
+      rgba(59, 130, 246, 0.02) 4px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 2px,
+      rgba(34, 197, 94, 0.02) 2px,
+      rgba(34, 197, 94, 0.02) 4px
+    );
+  pointer-events: none;
+  animation: textureMove 30s linear infinite;
+}
+
+/* Floating Geometric Shapes */
+.floating-shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floating-shape {
+  position: absolute;
+  opacity: 0.08;
+  animation: float 8s ease-in-out infinite;
+  filter: blur(0.5px);
+}
+
+.floating-shape:nth-child(1) {
+  top: 15%;
+  left: 8%;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(45deg, var(--primary-400), var(--secondary-400));
+  border-radius: 50%;
+  animation-delay: 0s;
+  animation-duration: 12s;
+}
+
+.floating-shape:nth-child(2) {
+  top: 25%;
+  right: 12%;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, var(--secondary-400), var(--primary-400));
+  border-radius: var(--radius-lg);
+  animation-delay: 3s;
+  animation-duration: 15s;
+}
+
+.floating-shape:nth-child(3) {
+  bottom: 25%;
+  left: 12%;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(45deg, var(--primary-300), var(--secondary-300));
+  border-radius: var(--radius-xl);
+  animation-delay: 6s;
+  animation-duration: 18s;
+}
+
+.floating-shape:nth-child(4) {
+  bottom: 15%;
+  right: 8%;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(45deg, var(--secondary-300), var(--primary-300));
+  border-radius: 50%;
+  animation-delay: 9s;
+  animation-duration: 14s;
+}
+
+.floating-shape:nth-child(5) {
+  top: 50%;
+  left: 5%;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(45deg, var(--primary-200), var(--secondary-200));
+  border-radius: var(--radius-md);
+  animation-delay: 12s;
+  animation-duration: 16s;
+}
+
+.floating-shape:nth-child(6) {
+  top: 60%;
+  right: 5%;
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(45deg, var(--secondary-200), var(--primary-200));
+  border-radius: 50%;
+  animation-delay: 15s;
+  animation-duration: 13s;
+}
+
+/* Welcome Title */
 .welcome-title {
-  color: #1976d2;
-  font-size: 3.2rem;
+  color: var(--text-primary);
+  font-size: var(--text-6xl);
   font-weight: 900;
-  letter-spacing: 1.2px;
-  margin-bottom: 32px;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--space-8);
   text-align: center;
-  text-shadow: 0 4px 24px rgba(33,150,243,0.09);
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--secondary-600) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 1s ease-out;
+  text-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
 }
 
+.welcome-title::after {
+  content: 'Healthcare Management System';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--secondary-600) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.8;
+  filter: blur(1px);
+  z-index: -1;
+}
+
+.welcome-title::before {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-500), var(--secondary-500));
+  border-radius: var(--radius-full);
+  animation: titleUnderline 2s ease-out 1s forwards;
+}
+
+/* Welcome Grid */
 .welcome-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 38px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-8);
   width: 100%;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
+/* Welcome Cards */
 .welcome-card {
-  background: rgba(255, 255, 255, 0.22);
-  border-radius: 32px 8px 32px 8px/8px 32px 8px 32px;
-  box-shadow: 0 8px 40px 0 rgba(44, 62, 80, 0.13), 0 2px 24px 0 rgba(33,150,243,0.07);
-  padding: 44px 28px 36px 28px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: var(--radius-3xl);
+  box-shadow: var(--shadow-xl);
+  padding: var(--space-8);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: transform 0.18s cubic-bezier(.36,.07,.19,.97), box-shadow 0.2s, background 0.3s;
-  will-change: transform;
-  min-height: 320px;
+  transition: all var(--transition-normal);
   position: relative;
-  border: 2px solid rgba(25, 118, 210, 0.16);
-  backdrop-filter: blur(14px) saturate(1.1);
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  min-height: 280px;
+  cursor: pointer;
 }
+
 .welcome-card::before {
   content: '';
   position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: linear-gradient(120deg, rgba(33,150,243,0.06) 0%, rgba(33,203,243,0.04) 100%);
-  pointer-events: none;
-  border-radius: inherit;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-500), var(--secondary-500));
+  transform: scaleX(0);
+  transition: transform var(--transition-normal);
 }
-.welcome-card > * {
+
+.welcome-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+  transform: rotate(0deg);
+  transition: transform var(--transition-slow);
+  pointer-events: none;
+}
+
+.welcome-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-2xl);
+  border-color: rgba(59, 130, 246, 0.4);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.welcome-card:hover::before {
+  transform: scaleX(1);
+}
+
+.welcome-card:hover::after {
+  transform: rotate(180deg);
+}
+
+/* Card Icons */
+.welcome-card .card-icon {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--primary-100) 0%, var(--secondary-100) 100%);
+  opacity: 0.6;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xl);
+}
+
+.welcome-card:hover .card-icon {
+  opacity: 1;
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Card Headings */
+.welcome-card h4 {
+  color: var(--text-primary);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  transition: color var(--transition-fast);
+}
+
+.welcome-card:hover h4 {
+  color: var(--primary-600);
+}
+
+/* Card Descriptions */
+.welcome-card p {
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  text-align: center;
+  margin-bottom: var(--space-6);
+  position: relative;
+  z-index: 1;
+  transition: color var(--transition-fast);
+}
+
+.welcome-card:hover p {
+  color: var(--text-primary);
+}
+
+/* Welcome Links */
+.welcome-link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
   position: relative;
   z-index: 1;
 }
-.welcome-card:hover {
-  box-shadow: 0 32px 90px 0 rgba(33, 150, 243, 0.18), 0 0 0 4px #e3f2fd;
-  transform: translateY(-12px) scale(1.04);
-  transition: transform 0.22s cubic-bezier(.36,.07,.19,.97), box-shadow 0.22s;
-  z-index: 2;
-}
 
-
-.welcome-card h4, .welcome-card .MuiTypography-h4 {
-  color: #1976d2;
-  font-size: 2.1rem;
-  font-weight: 800;
-  margin-bottom: 18px;
-  letter-spacing: 1px;
-}
-
-.welcome-link {
-  display: inline-block;
-  margin-top: 18px;
-  text-decoration: none;
-  width: 100%;
-}
-
+/* Welcome Buttons */
 .welcome-btn {
   width: 100%;
-  min-width: 220px;
-  background: linear-gradient(90deg, #1976d2 0%, #21cbf3 100%);
-  color: #fff;
-  border: 2px solid rgba(25, 118, 210, 0.19);
-  border-radius: 999px 28px 999px 28px/28px 999px 28px 999px;
-  padding: 18px 0;
-  font-size: 1.22rem;
-  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: var(--radius-xl);
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--text-lg);
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 24px 0 rgba(33, 150, 243, 0.13);
-  transition: background 0.2s, box-shadow 0.2s, transform 0.15s, border-radius 0.22s;
-  outline: none;
-  margin-bottom: 4px;
-  backdrop-filter: blur(2px);
-}
-.welcome-btn:active {
-  border-radius: 28px 999px 28px 999px/999px 28px 999px 28px;
-}
-.welcome-btn:hover, .welcome-btn:focus {
-  background: linear-gradient(90deg, #0d47a1 0%, #21cbf3 100%);
-  box-shadow: 0 12px 40px 0 rgba(33, 150, 243, 0.23), 0 0 0 3px #e3f2fd;
-  transform: translateY(-4px) scale(1.06);
-  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  letter-spacing: 0.025em;
 }
 
-@media (max-width: 1100px) {
+.welcome-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left var(--transition-slow);
+}
+
+.welcome-btn:hover::before {
+  left: 100%;
+}
+
+.welcome-btn:hover {
+  background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-800) 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.welcome-btn:active {
+  transform: translateY(0);
+}
+
+/* Card-specific styling */
+.welcome-card:nth-child(1) .card-icon {
+  background: linear-gradient(135deg, var(--primary-100) 0%, var(--primary-200) 100%);
+}
+
+.welcome-card:nth-child(2) .card-icon {
+  background: linear-gradient(135deg, var(--secondary-100) 0%, var(--secondary-200) 100%);
+}
+
+.welcome-card:nth-child(3) .card-icon {
+  background: linear-gradient(135deg, var(--info-100) 0%, var(--info-200) 100%);
+}
+
+.welcome-card:nth-child(4) .card-icon {
+  background: linear-gradient(135deg, var(--warning-100) 0%, var(--warning-200) 100%);
+}
+
+.welcome-card:nth-child(5) .card-icon {
+  background: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-200) 100%);
+}
+
+/* Enhanced Background Animations */
+@keyframes backgroundShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-150px);
+  }
+}
+
+@keyframes textureMove {
+  0% {
+    transform: translateX(0px) translateY(0px);
+  }
+  100% {
+    transform: translateX(-50px) translateY(-50px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-25px) rotate(90deg) scale(1.05);
+  }
+  50% {
+    transform: translateY(-15px) rotate(180deg) scale(0.95);
+  }
+  75% {
+    transform: translateY(-30px) rotate(270deg) scale(1.1);
+  }
+}
+
+@keyframes titleUnderline {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 200px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .welcome-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-6);
+    max-width: 900px;
+  }
+  
+  .welcome-title {
+    font-size: var(--text-5xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-container {
+    padding: calc(var(--space-16) + 20px) var(--space-4) var(--space-6);
+  }
+  
+  .welcome-title {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-6);
+  }
+  
   .welcome-grid {
     grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 0 2vw;
+    gap: var(--space-4);
+    padding: 0 var(--space-4);
   }
+  
   .welcome-card {
-    padding: 32px 8vw 28px 8vw;
-    min-height: 220px;
+    padding: var(--space-6);
+    min-height: 240px;
   }
+  
+  .welcome-card h4 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-4);
+  }
+  
+  .welcome-btn {
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--text-base);
+  }
+  
+  .floating-shape {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-container {
+    padding: calc(var(--space-12) + 20px) var(--space-3) var(--space-4);
+  }
+  
   .welcome-title {
-    font-size: 2.1rem;
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-5);
+  }
+  
+  .welcome-grid {
+    padding: 0 var(--space-2);
+  }
+  
+  .welcome-card {
+    padding: var(--space-5);
+    min-height: 200px;
+  }
+  
+  .welcome-card h4 {
+    font-size: var(--text-lg);
+  }
+  
+  .welcome-btn {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-sm);
+  }
+}
+
+/* Animation Classes */
+.welcome-container {
+  animation: fadeIn 0.8s ease-out;
+}
+
+  .welcome-title {
+  animation: slideIn 0.8s ease-out 0.2s both;
+}
+
+.welcome-card {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.welcome-card:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.welcome-card:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.welcome-card:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+.welcome-card:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+/* Loading States */
+.welcome-card.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.welcome-card.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+  border: 3px solid var(--gray-200);
+  border-top: 3px solid var(--primary-500);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 10;
+}
+
+/* Print Styles */
+@media print {
+  .welcome-container {
+    background: var(--bg-primary);
+  }
+  
+  .welcome-card {
+    box-shadow: none;
+    border: 1px solid var(--gray-300);
+  }
+  
+  .welcome-card::before,
+  .welcome-card::after {
+    display: none;
+  }
+  
+  .floating-shapes {
+    display: none;
   }
 }

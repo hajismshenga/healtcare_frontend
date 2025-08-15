@@ -24,8 +24,8 @@ const SecondOpinion = () => {
       {
         id: 'SO1',
         patientId: 'P123',
-        patientName: 'John Doe',
-        requestingDoctor: 'Dr. Sarah Johnson',
+        patientName: 'juma ali',
+        requestingDoctor: 'Dr. Ngwali',
         medicalHistory: [
           'Hypertension',
           'Diabetes',
@@ -40,8 +40,8 @@ const SecondOpinion = () => {
       {
         id: 'SO2',
         patientId: 'P124',
-        patientName: 'Jane Smith',
-        requestingDoctor: 'Dr. John Smith',
+        patientName: 'Abu Msa',
+        requestingDoctor: 'Dr. Hajis',
         medicalHistory: [
           'Heart Disease',
           'High Cholesterol'

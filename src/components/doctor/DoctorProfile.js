@@ -7,9 +7,9 @@ const DoctorProfile = () => {
   const [editMode, setEditMode] = React.useState(false);
   // Local state for editable profile
   const [profile, setProfile] = React.useState({
-    name: 'Dr. John Smith',
+    name: 'Dr. hajis',
     specialization: 'Cardiologist',
-    email: 'dr.john.smith@example.com',
+    email: 'hajismshenga@gmail.com',
     phone: '+255 712 345 678',
     location: 'Muhimbili National Hospital',
     bio: 'Experienced cardiologist with over 15 years of practice. Specializes in heart disease diagnosis and treatment.',

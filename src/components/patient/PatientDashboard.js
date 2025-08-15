@@ -46,7 +46,7 @@ const PatientDashboard = () => {
   const [doctors, setDoctors] = useState([
     {
       id: 'D1',
-      name: 'Dr. Sarah Johnson',
+      name: 'Dr. Asha Ame',
       specialty: 'Cardiology',
       experience: '15 years',
       rating: 4.8,
@@ -54,7 +54,7 @@ const PatientDashboard = () => {
     },
     {
       id: 'D2',
-      name: 'Dr. Michael Smith',
+      name: 'Dr. Mohd Ali',
       specialty: 'Endocrinology',
       experience: '10 years',
       rating: 4.9,
@@ -87,7 +87,7 @@ const PatientDashboard = () => {
     const mockDoctors = [
       {
         id: 'D1',
-        name: 'Dr. John Smith',
+        name: 'Dr. Kombo Ali',
         specialty: 'Cardiology',
         experience: '15 years',
         rating: 4.5,
@@ -96,7 +96,7 @@ const PatientDashboard = () => {
       },
       {
         id: 'D2',
-        name: 'Dr. Sarah Johnson',
+        name: 'Dr. Juma Ali',
         specialty: 'Neurology',
         experience: '10 years',
         rating: 4.8,
@@ -108,7 +108,7 @@ const PatientDashboard = () => {
     const mockSecondOpinions = [
       {
         id: 'SO1',
-        doctor: 'Dr. Sarah Johnson',
+        doctor: 'Dr. Paul Pogba',
         specialty: 'Cardiology',
         reason: 'Second opinion on heart condition',
         status: 'Pending',
@@ -118,7 +118,7 @@ const PatientDashboard = () => {
       },
       {
         id: 'SO2',
-        doctor: 'Dr. Michael Smith',
+        doctor: 'Dr. Asha Haji',
         specialty: 'Endocrinology',
         reason: 'Second opinion on diabetes treatment',
         status: 'Completed',
@@ -131,7 +131,7 @@ const PatientDashboard = () => {
     const mockPrescriptions = [
       {
         id: 'P1',
-        doctor: 'Dr. John Smith',
+        doctor: 'Dr. Pili Abuu',
         medications: [
           { name: 'Metformin', dosage: '500mg', frequency: 'twice daily' },
           { name: 'Amlodipine', dosage: '5mg', frequency: 'daily' }

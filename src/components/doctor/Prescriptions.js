@@ -10,7 +10,7 @@ const Prescriptions = () => {
     {
       id: 'PR1',
       patientId: 'PID.001',
-      patientName: 'John Doe',
+      patientName: 'juma ali',
       date: '2025-07-02',
       disease: 'Diabetes',
       medications: [
@@ -22,7 +22,7 @@ const Prescriptions = () => {
     {
       id: 'PR2',
       patientId: 'PID.002',
-      patientName: 'Jane Smith',
+      patientName: 'Abu Msa',
       date: '2025-07-01',
       disease: 'Cholesterol',
       medications: [

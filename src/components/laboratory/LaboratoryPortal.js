@@ -1,9 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container, Typography, Box, Button, Grid } from '@mui/material';
-import { Add, Visibility } from '@mui/icons-material';
+import { Add, Visibility, Science, Assessment } from '@mui/icons-material';
 
 const LaboratoryPortal = () => {
+  const navigate = useNavigate();
+
+  // Check authentication on component mount
+  useEffect(() => {
+    const labToken = localStorage.getItem('labToken');
+    if (!labToken) {
+      navigate('/laboratory/login');
+    }
+  }, [navigate]);
+
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
       <Typography variant="h3" component="h1" gutterBottom>
@@ -19,22 +29,22 @@ const LaboratoryPortal = () => {
               </Typography>
               <Button
                 variant="contained"
-                startIcon={<Add />}
+                startIcon={<Science />}
                 fullWidth
                 sx={{ mb: 2 }}
+                component={Link}
+                to="/laboratory/dashboard"
               >
-                <Link to="/laboratory/add-lab" style={{ textDecoration: 'none', color: 'white' }}>
-                  Add Laboratory Test
-                </Link>
+                Laboratory Dashboard
               </Button>
               <Button
                 variant="outlined"
-                startIcon={<Visibility />}
+                startIcon={<Assessment />}
                 fullWidth
+                component={Link}
+                to="/laboratory/workflow"
               >
-                <Link to="/laboratory/view-tests" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  View Laboratory Tests
-                </Link>
+                Test Workflow
               </Button>
             </Box>
           </Grid>
@@ -42,26 +52,19 @@ const LaboratoryPortal = () => {
           <Grid item xs={12} md={6}>
             <Box sx={{ p: 3, border: '1px solid #ccc', borderRadius: 2 }}>
               <Typography variant="h5" gutterBottom>
-                Patient Samples
+                Test Management
               </Typography>
               <Button
                 variant="contained"
                 startIcon={<Add />}
                 fullWidth
                 sx={{ mb: 2 }}
+                component={Link}
+                to="/laboratory/pending-tests"
               >
-                <Link to="/laboratory/add-sample" style={{ textDecoration: 'none', color: 'white' }}>
-                  Add Patient Sample
-                </Link>
-              </Button>
-              <Button
-                variant="outlined"
-                startIcon={<Visibility />}
-                fullWidth
-              >
-                <Link to="/laboratory/view-samples" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  View Patient Samples
-                </Link>
+                Pending Tests
+              
+                Completed Tests
               </Button>
             </Box>
           </Grid>

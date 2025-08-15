@@ -8,7 +8,7 @@ const initialLabResults = [
   {
     id: 'LR1',
     date: '2025-07-25',
-    doctor: 'Dr. John Smith',
+    doctor: 'Dr. sule',
     hospital: 'Muhimbili National Hospital',
     disease: 'Diabetes',
     medications: [
@@ -19,7 +19,7 @@ const initialLabResults = [
   {
     id: 'LR2',
     date: '2025-06-15',
-    doctor: 'Dr. Jane Doe',
+    doctor: 'Dr. Makame',
     hospital: 'Aga Khan Hospital',
     disease: 'Hypertension',
     medications: [

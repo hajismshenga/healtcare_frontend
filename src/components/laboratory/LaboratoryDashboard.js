@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './styles/LaboratoryStyles.css';
 
 const LaboratoryDashboard = () => {
-  const [activeSection, setActiveSection] = useState('pending-tests');
-  const [pendingTests, setPendingTests] = useState([]);
-  const [completedTests, setCompletedTests] = useState([]);
+  // Always start with 'Received Tests' section when component mounts
+  const [activeSection, setActiveSection] = useState('received-tests');
+  const [receivedTests, setReceivedTests] = useState([]);
   const [testResults, setTestResults] = useState({});
-  const navigate = useNavigate();
+  const [selectedTest, setSelectedTest] = useState(null);
 
-  // Check authentication
+  // Mock data for received tests
   useEffect(() => {
-    const labToken = localStorage.getItem('labToken');
-    if (!labToken) {
-      navigate('/laboratory');
-    }
-  }, [navigate]);
-
-  // Mock data for tests
-  useEffect(() => {
-    const mockPendingTests = [
+    const mockReceivedTests = [
       {
         id: 'T1',
+        testId: 'TEST-001',
+        patientName: 'hajis',
         patientId: 'P123',
         testName: 'Complete Blood Count',
-        doctor: 'Dr. John Smith',
-        date: '2025-06-22',
-        status: 'Pending',
+        doctor: 'Dr. Sarah Johnson',
+        date: '2025-08-12',
+        status: 'Done',
+        completedDate: '2025-08-12',
+        results: {
+          'WBC': '7.5',
+          'RBC': '5.2',
+          'HGB': '15.0',
+          'PLT': '250'
+        },
         requiredTests: [
           { name: 'WBC', unit: 'cells/uL' },
           { name: 'RBC', unit: 'million/uL' },
@@ -36,11 +36,13 @@ const LaboratoryDashboard = () => {
       },
       {
         id: 'T2',
+        testId: 'TEST-002',
+        patientName: 'hajis',
         patientId: 'P124',
         testName: 'Blood Sugar Test',
-        doctor: 'Dr. Sarah Johnson',
-        date: '2025-06-22',
-        status: 'Pending',
+        doctor: 'Dr. Michael Brown',
+        date: '2025-08-12',
+        status: 'Received',
         requiredTests: [
           { name: 'Fasting', unit: 'mg/dL' },
           { name: 'Postprandial', unit: 'mg/dL' }
@@ -48,64 +50,76 @@ const LaboratoryDashboard = () => {
       }
     ];
 
-    const mockCompletedTests = [
-      {
-        id: 'T3',
-        patientId: 'P125',
-        testName: 'Cholesterol Test',
-        doctor: 'Dr. John Smith',
-        date: '2025-06-21',
-        status: 'Completed',
-        results: {
-          totalCholesterol: '200 mg/dL',
-          hdl: '60 mg/dL',
-          ldl: '120 mg/dL',
-          triglycerides: '150 mg/dL'
-        },
-        referenceRanges: {
-          totalCholesterol: '100-200 mg/dL',
-          hdl: '40-60 mg/dL',
-          ldl: '0-130 mg/dL',
-          triglycerides: '0-150 mg/dL'
-        }
-      }
-    ];
-
-    setPendingTests(mockPendingTests);
-    setCompletedTests(mockCompletedTests);
+    setReceivedTests(mockReceivedTests);
   }, []);
 
-  const handleTestComplete = (testId) => {
-    const test = pendingTests.find(t => t.id === testId);
+  const handleSendResults = (testId) => {
+    const test = receivedTests.find(t => t.id === testId);
     if (test) {
-      const updatedTests = pendingTests.filter(t => t.id !== testId);
-      setPendingTests(updatedTests);
-      
-      // Show results form
-      setTestResults(test.requiredTests.reduce((acc, test) => {
+      setSelectedTest(test);
+      // Initialize results object with empty values
+      const initialResults = test.requiredTests.reduce((acc, test) => {
         acc[test.name] = '';
         return acc;
-      }, {}));
+      }, {});
+      setTestResults(initialResults);
     }
   };
 
-  const handleSaveResults = (testId) => {
-    const test = pendingTests.find(t => t.id === testId);
-    if (test) {
-      const completedTest = {
-        ...test,
-        status: 'Completed',
-        results: testResults,
-        referenceRanges: test.requiredTests.reduce((acc, test) => {
-          acc[test.name] = 'Normal Range'; // In real system, this would be based on test type
-          return acc;
-        }, {})
-      };
-      
-      setCompletedTests([...completedTests, completedTest]);
-      setTestResults({});
+  const handleSubmitResults = (e) => {
+    e.preventDefault();
+    if (!selectedTest) return;
+    
+    // Update the test status and results
+    const updatedTests = receivedTests.map(test => {
+      if (test.id === selectedTest.id) {
+        return {
+          ...test,
+          status: 'Completed',
+          completedDate: new Date().toISOString().split('T')[0],
+          results: { ...testResults }
+        };
+      }
+      return test;
+    });
+
+    setReceivedTests(updatedTests);
+    setSelectedTest(null);
+    setTestResults({});
+  };
+
+  const handleDeleteTest = (testId) => {
+    if (window.confirm('Are you sure you want to delete this test?')) {
+      setReceivedTests(prevTests => prevTests.filter(test => test.id !== testId));
     }
   };
+
+  const handleEditTest = (testId) => {
+    const test = receivedTests.find(t => t.id === testId);
+    if (test) {
+      setSelectedTest(test);
+      setTestResults(test.results || {});
+      setActiveSection('received-tests');
+    }
+  };
+
+  const handleSendTest = (testId) => {
+    if (window.confirm('Are you sure you want to send these results to the doctor?')) {
+      // In a real app, this would send the results to the doctor
+      alert('Results have been sent to the doctor.');
+      // Update the test status to 'Sent' or similar if needed
+      setReceivedTests(prevTests => 
+        prevTests.map(test => 
+          test.id === testId 
+            ? { ...test, status: 'Sent', sentDate: new Date().toISOString().split('T')[0] }
+            : test
+        )
+      );
+    }
+  };
+
+  const completedTests = receivedTests.filter(test => test.status === 'Completed');
+  const pendingTests = receivedTests.filter(test => test.status === 'Received');
 
   return (
     <div className="laboratory-dashboard">
@@ -113,152 +127,188 @@ const LaboratoryDashboard = () => {
         <h1>Laboratory Dashboard</h1>
         <div className="nav-buttons">
           <button
-            className={`nav-btn ${activeSection === 'pending-tests' ? 'active' : ''}`}
-            onClick={() => setActiveSection('pending-tests')}
+            className={`nav-btn ${activeSection === 'received-tests' ? 'active' : ''}`}
+            onClick={() => setActiveSection('received-tests')}
           >
-            Pending Tests
+            Received Tests
           </button>
           <button
-            className={`nav-btn ${activeSection === 'completed-tests' ? 'active' : ''}`}
-            onClick={() => setActiveSection('completed-tests')}
+            className={`nav-btn ${activeSection === 'sent-results' ? 'active' : ''}`}
+            onClick={() => setActiveSection('sent-results')}
           >
-            Completed Tests
-          </button>
-          <button
-            className={`nav-btn ${activeSection === 'reports' ? 'active' : ''}`}
-            onClick={() => setActiveSection('reports')}
-          >
-            Test Reports
+            Sent Results
           </button>
         </div>
       </div>
 
       <div className="dashboard-content">
-        {activeSection === 'pending-tests' && (
-          <div className="pending-tests">
-            <h2>Pending Tests</h2>
-            <div className="tests-list">
-              {pendingTests.map((test) => (
-                <div key={test.id} className="test-card">
-                  <div className="test-info">
-                    <h3>Test: {test.testName}</h3>
-                    <p><strong>Patient ID:</strong> {test.patientId}</p>
-                    <p><strong>Doctor:</strong> {test.doctor}</p>
-                    <p><strong>Date:</strong> {test.date}</p>
-                    <p><strong>Required Tests:</strong></p>
-                    <ul>
-                      {test.requiredTests.map((t, index) => (
-                        <li key={index}>{t.name} ({t.unit})</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="test-actions">
-                    <button
-                      className="btn-primary"
-                      onClick={() => handleTestComplete(test.id)}
-                    >
-                      Complete Test
-                    </button>
-                  </div>
-                </div>
-              ))}
+        {activeSection === 'received-tests' && (
+          <div className="received-tests">
+            <div className="table-responsive">
+              <table className="tests-table">
+                <thead>
+                  <tr>
+                    <th>Patient Name</th>
+                    <th>Test Name</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pendingTests.length === 0 ? (
+                    <tr>
+                      <td colSpan="5" className="text-center">No tests received yet.</td>
+                    </tr>
+                  ) : (
+                    pendingTests.map((test) => (
+                      <tr key={test.id}>
+                        <td>
+                          <div className="patient-info">
+                            <span className="patient-name">{test.patientName}</span>
+                            <span className="patient-id">ID: {test.patientId}</span>
+                          </div>
+                        </td>
+                        <td>{test.testName}</td>
+                        <td>{test.date}</td>
+                        <td>
+                          <span className="status-badge pending">Pending</span>
+                        </td>
+                        <td>
+                          <div className="action-buttons">
+                            <button 
+                              className="btn-edit"
+                              onClick={() => handleSendResults(test.id)}
+                              title="Edit Test"
+                            >
+                              <i className="fas fa-edit"></i> Edit
+                            </button>
+                            <button 
+                              className="btn-delete"
+                              onClick={() => handleDeleteTest(test.id)}
+                              title="Delete Test"
+                            >
+                              <i className="fas fa-trash"></i> Delete
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
             </div>
 
-            {Object.keys(testResults).length > 0 && (
+            {selectedTest && (
               <div className="results-form">
-                <h3>Enter Test Results</h3>
-                <form onSubmit={(e) => {
-                  e.preventDefault();
-                  handleSaveResults(Object.keys(testResults)[0]);
-                }}>
-                  {Object.entries(testResults).map(([testName, value]) => (
-                    <div key={testName} className="form-group">
-                      <label>{testName}</label>
+                <h3>Enter Test Results for {selectedTest.testName}</h3>
+                <form onSubmit={handleSubmitResults}>
+                  {selectedTest.requiredTests.map((test) => (
+                    <div key={test.name} className="form-group">
+                      <label>{test.name} ({test.unit})</label>
                       <input
                         type="text"
-                        value={value}
+                        value={testResults[test.name] || ''}
                         onChange={(e) => {
                           setTestResults(prev => ({
                             ...prev,
-                            [testName]: e.target.value
+                            [test.name]: e.target.value
                           }));
                         }}
+                        placeholder={`Enter ${test.name} result`}
                         required
                       />
                     </div>
                   ))}
-                  <button type="submit" className="btn-primary">
-                    Save Results
-                  </button>
+                  <div className="form-actions">
+                    <button 
+                      type="button" 
+                      className="btn-secondary"
+                      onClick={() => setSelectedTest(null)}
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit" className="btn-primary">
+                      Submit Results
+                    </button>
+                  </div>
                 </form>
               </div>
             )}
           </div>
         )}
 
-        {activeSection === 'completed-tests' && (
-          <div className="completed-tests">
-            <h2>Completed Tests</h2>
-            <div className="tests-list">
-              {completedTests.map((test) => (
-                <div key={test.id} className="test-card">
-                  <div className="test-info">
-                    <h3>Test: {test.testName}</h3>
-                    <p><strong>Patient ID:</strong> {test.patientId}</p>
-                    <p><strong>Doctor:</strong> {test.doctor}</p>
-                    <p><strong>Date:</strong> {test.date}</p>
-                    <p><strong>Results:</strong></p>
-                    {Object.entries(test.results).map(([key, value]) => (
-                      <div key={key} className="result-item">
-                        <p>{key}: {value}</p>
-                        <p className="reference-range">
-                          Reference: {test.referenceRanges[key]}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {activeSection === 'reports' && (
-          <div className="test-reports">
-            <h2>Test Reports</h2>
-            <div className="reports-list">
-              {completedTests.map((test) => (
-                <div key={test.id} className="report-card">
-                  <div className="report-header">
-                    <h3>Test Report</h3>
-                    <p><strong>Patient ID:</strong> {test.patientId}</p>
-                    <p><strong>Date:</strong> {test.date}</p>
-                  </div>
-                  <div className="report-content">
-                    <h4>Test Details</h4>
-                    <p><strong>Test Name:</strong> {test.testName}</p>
-                    <p><strong>Doctor:</strong> {test.doctor}</p>
-                    
-                    <h4>Results</h4>
-                    {Object.entries(test.results).map(([key, value]) => (
-                      <div key={key} className="result-item">
-                        <p><strong>{key}:</strong> {value}</p>
-                        <p className="reference-range">
-                          Reference: {test.referenceRanges[key]}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="report-actions">
-                    <button className="btn-secondary">
-                      Print Report
-                    </button>
-                    <button className="btn-secondary">
-                      Export PDF
-                    </button>
-                  </div>
-                </div>
-              ))}
+        {activeSection === 'sent-results' && (
+          <div className="sent-results">
+            <div className="table-responsive">
+              <table className="tests-table">
+                <thead>
+                  <tr>
+                    <th>Patient Name</th>
+                    <th>Doctor ID</th>
+                    <th>Result</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {completedTests.length === 0 ? (
+                    <tr>
+                      <td colSpan="5" className="text-center">No results have been sent yet.</td>
+                    </tr>
+                  ) : (
+                    completedTests.map((test) => (
+                      <tr key={test.id}>
+                        <td>
+                          <div className="patient-info">
+                            <span className="patient-name">{test.patientName}</span>
+                            <span className="patient-id">ID: {test.patientId}</span>
+                          </div>
+                        </td>
+                        <td>
+                          {test.doctor.replace('Dr. ', '')}
+                        </td>
+                        <td>
+                          {test.requiredTests.map((t, idx) => (
+                            <div key={idx} className="test-result">
+                              <strong>{t.name}:</strong> {test.results?.[t.name] || 'N/A'} 
+                              <span className="unit">({t.unit})</span>
+                            </div>
+                          ))}
+                        </td>
+                        <td>
+                          {new Date(test.completedDate).toLocaleDateString('en-GB')}
+                        </td>
+                        <td>
+                          <div className="action-buttons">
+                            <button 
+                              className="btn-edit"
+                              onClick={() => handleEditTest(test.id)}
+                              title="Edit Test"
+                            >
+                              <i className="fas fa-edit"></i> Edit
+                            </button>
+                            <button 
+                              className="btn-delete"
+                              onClick={() => handleDeleteTest(test.id)}
+                              title="Delete Test"
+                            >
+                              <i className="fas fa-trash"></i> Delete
+                            </button>
+                            <button 
+                              className="btn-send"
+                              onClick={() => handleSendTest(test.id)}
+                              title="Send Test"
+                            >
+                              <i className="fas fa-paper-plane"></i> Send
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         )}

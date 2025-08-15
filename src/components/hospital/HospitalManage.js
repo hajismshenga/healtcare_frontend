@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './HospitalManage.css';
 
 const initialDoctors = [
-  { id: 'DID/001', name: 'Dr. John Doe', profession: 'Cardiologist' },
-  { id: 'DID/002', name: 'Dr. Jane Smith', profession: 'Neurologist' }
+  { id: 'DID/001', name: 'Dr. haji', profession: 'Cardiologist' },
+  { id: 'DID/002', name: 'Dr. ngwali', profession: 'Neurologist' }
 ];
 const initialLabs = [
   { id: 'LAB/001', name: 'Central Lab' },

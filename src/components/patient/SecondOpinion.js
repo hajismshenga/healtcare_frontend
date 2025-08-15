@@ -6,18 +6,18 @@ import { Button, Snackbar, Alert } from '@mui/material';
 const mockDoctors = [
   {
     id: 'DID/001',
-    name: 'Dr. John Smith',
+    name: 'Dr. hajis',
     profession: 'Cardiologist',
     hospital: 'Muhimbili National Hospital',
-    email: 'john.smith@example.com',
+    email: 'drhajis20@gmail.com',
     phone: '+255 123 456 789'
   },
   {
     id: 'DID/002',
-    name: 'Dr. Jane Doe',
+    name: 'Dr. ngwali',
     profession: 'Neurologist',
     hospital: 'Aga Khan Hospital',
-    email: 'jane.doe@example.com',
+    email: 'drngwali@gmail.com',
     phone: '+255 987 654 321'
   },
   {
@@ -25,7 +25,7 @@ const mockDoctors = [
     name: 'Dr. Adam Mohamed',
     profession: 'General Practitioner',
     hospital: 'Regency Medical Centre',
-    email: 'adam.mohamed@example.com',
+    email: 'adam.mohamed@gmail.com',
     phone: '+255 555 111 222'
   }
 ];

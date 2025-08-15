@@ -1,9 +1,13 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './styles/FooterStyles.css';
 
 const Footer = () => {
+  const location = useLocation();
+  const isAdminPage = location.pathname.includes('/admin');
+  
   return (
-    <footer className="footer">
+    <footer className={`footer ${isAdminPage ? 'admin-footer' : ''}`}>
       <div className="footer-content">
         <div className="footer-section">
           <h4>Healthcare System</h4>

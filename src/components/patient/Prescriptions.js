@@ -6,7 +6,7 @@ import { Delete } from '@mui/icons-material';
 const initialPrescriptions = [
   {
     id: 'PR1',
-    patient: 'John Doe',
+    patient: 'Abdul kareem',
     date: '2025-07-25',
     disease: 'Diabetes',
     medications: [
@@ -16,7 +16,7 @@ const initialPrescriptions = [
   },
   {
     id: 'PR2',
-    patient: 'John Doe',
+    patient: 'Issa ali',
     date: '2025-06-15',
     disease: 'Hypertension',
     medications: [

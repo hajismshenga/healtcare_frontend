@@ -14,7 +14,7 @@ const initialSecondOpinionRequests = [
   {
     id: 'REQ1',
     patientId: 'PID/001',
-    patientName: 'Alice Johnson',
+    patientName: 'Ali Said',
     medications: [
       { name: 'Metformin', dosage: '500mg', frequency: '2x daily' },
       { name: 'Insulin', dosage: '10 units', frequency: 'at night' }
@@ -23,7 +23,7 @@ const initialSecondOpinionRequests = [
   {
     id: 'REQ2',
     patientId: 'PID/002',
-    patientName: 'Bob Smith',
+    patientName: 'Makame ali',
     medications: [
       { name: 'Amlodipine', dosage: '5mg', frequency: '1x daily' }
     ]

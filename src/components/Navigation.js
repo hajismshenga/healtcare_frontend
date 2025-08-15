@@ -30,7 +30,8 @@ const Navigation = () => {
       'hospital': 'Hospital',
       'doctor': 'Doctor',
       'laboratory': 'Laboratory',
-      'patient': 'Patient'
+      'patient': 'Patient',
+      'admin': 'Admin'
     };
     return portalMap[type] || '';
   }, []);
@@ -59,7 +60,7 @@ const Navigation = () => {
   }, [navigate]);
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${portalType === 'admin' ? 'admin-navbar' : ''}`}>
       <div className="nav-brand">
         <h1>Healthcare System</h1>
         <span className="portal-type">{getPortalName(portalType)}</span>

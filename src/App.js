@@ -31,7 +31,10 @@ import DoctorProtectedRoute from './components/doctor/ProtectedRoute';
 
 // Laboratory Components
 import LaboratoryPortal from './components/laboratory/LaboratoryPortal';
+import LaboratoryLogin from './components/laboratory/LaboratoryLogin';
+import LaboratoryDashboard from './components/laboratory/LaboratoryDashboard';
 import LabTestWorkflow from './components/laboratory/LabTestWorkflow';
+import LaboratoryProtectedRoute from './components/laboratory/ProtectedRoute';
 
 // Patient Components
 import PatientPortal from './components/patient/PatientPortal';
@@ -41,6 +44,11 @@ import MedicalHistory from './components/patient/MedicalHistory';
 import PatientPrescriptions from './components/patient/Prescriptions';
 import LabResults from './components/patient/LabResults';
 import SecondOpinion from './components/patient/SecondOpinion';
+
+// Admin Components
+import AdminLogin from './components/admin/AdminLogin';
+import AdminDashboard from './components/admin/AdminDashboard';
+import AdminProtectedRoute from './components/admin/ProtectedRoute';
 
 export default function App() {
   return (
@@ -99,7 +107,23 @@ export default function App() {
           } />
 
           {/* Laboratory Routes */}
-          <Route path="/laboratory" element={<LabTestWorkflow />} />
+          <Route path="/laboratory" element={<LaboratoryLogin />} />
+          <Route path="/laboratory/login" element={<LaboratoryLogin />} />
+          <Route path="/laboratory/portal" element={
+            <LaboratoryProtectedRoute>
+              <LaboratoryPortal />
+            </LaboratoryProtectedRoute>
+          } />
+          <Route path="/laboratory/dashboard" element={
+            <LaboratoryProtectedRoute>
+              <LaboratoryDashboard />
+            </LaboratoryProtectedRoute>
+          } />
+          <Route path="/laboratory/workflow" element={
+            <LaboratoryProtectedRoute>
+              <LabTestWorkflow />
+            </LaboratoryProtectedRoute>
+          } />
 
           {/* Patient Routes */}
           <Route path="/patient/login" element={<PatientLogin />} />
@@ -154,11 +178,18 @@ export default function App() {
             </ProtectedRoute>
           } />
 
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={
+            <AdminProtectedRoute>
+              <AdminDashboard />
+            </AdminProtectedRoute>
+          } />
+
           {/* 404 Route */}
           <Route path="*" element={<div>404 Not Found</div>} />
         </Routes>
         <Footer />
-        <p className="copyright"> 2025, All Rights Reserved</p>
       </div>
     </Router>
   );

@@ -8,7 +8,7 @@ const initialHistory = [
   {
     id: 'MH1',
     date: '2025-07-25',
-    doctor: 'Dr. John Smith',
+    doctor: 'Dr. Michel John',
     hospital: 'Muhimbili National Hospital',
     disease: 'Diabetes',
     medications: [
@@ -20,7 +20,7 @@ const initialHistory = [
   {
     id: 'MH2',
     date: '2025-06-15',
-    doctor: 'Dr. Jane Doe',
+    doctor: 'Dr. Sara',
     hospital: 'Aga Khan Hospital',
     disease: 'Hypertension',
     medications: [

@@ -1,107 +1,481 @@
-/* Beautiful Doctor Profile Styles */
+/* Modern Doctor Profile Styles */
 .doctor-profile-container {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(44, 62, 80, 0.13);
+  max-width: 1200px;
+  margin: var(--space-8) auto;
+  padding: var(--space-8);
+  background: var(--bg-primary);
+  border-radius: var(--radius-3xl);
+  box-shadow: var(--shadow-2xl);
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: var(--space-8);
+  border: 1px solid var(--gray-200);
+  position: relative;
+  overflow: hidden;
+}
+
+.doctor-profile-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--primary-500), var(--secondary-500), var(--primary-600));
+  border-radius: var(--radius-3xl) var(--radius-3xl) 0 0;
 }
 
 .doctor-profile-avatar {
-  flex: 1 1 260px;
+  flex: 1 1 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(135deg, #e3f0ff 0%, #f9f9f9 100%);
-  border-radius: 16px;
-  padding: 2rem 1rem 1.5rem 1rem;
-  box-shadow: 0 4px 24px rgba(44, 62, 80, 0.07);
+  background: linear-gradient(135deg, var(--primary-50) 0%, var(--secondary-50) 100%);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--primary-100);
+}
+
+.doctor-profile-avatar::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .doctor-profile-avatar .MuiAvatar-root {
-  width: 120px !important;
-  height: 120px !important;
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  background: #1976d2 !important;
-  color: #fff;
-  border: 4px solid #fff;
-  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10);
+  width: 140px !important;
+  height: 140px !important;
+  font-size: 3.5rem !important;
+  margin-bottom: var(--space-6);
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%) !important;
+  color: var(--text-inverse) !important;
+  border: 6px solid var(--bg-primary);
+  box-shadow: var(--shadow-xl);
+  position: relative;
+  z-index: 1;
+  transition: all var(--transition-normal);
+}
+
+.doctor-profile-avatar .MuiAvatar-root:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-2xl);
 }
 
 .doctor-profile-avatar h2 {
-  margin: 0.5rem 0 0.2rem 0;
-  font-size: 2rem;
+  margin: var(--space-3) 0 var(--space-2) 0;
+  font-size: var(--text-3xl);
   font-weight: 700;
-  color: #222a35;
+  color: var(--text-primary);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-600) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
 .doctor-profile-avatar .subtitle {
-  color: #1976d2;
-  font-size: 1.1rem;
+  color: var(--primary-600);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  margin-bottom: var(--space-4);
 }
 
 .doctor-profile-info {
-  flex: 2 1 400px;
-  background: #f7faff;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 2px 16px rgba(44, 62, 80, 0.05);
+  flex: 2 1 500px;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--gray-50) 100%);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--gray-200);
+  position: relative;
+}
+
+.doctor-profile-info::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--secondary-400), var(--secondary-500));
+  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
 }
 
 .doctor-profile-info h6 {
-  color: #1976d2;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
+  color: var(--primary-600);
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-6);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--primary-100);
+  padding-bottom: var(--space-3);
+  position: relative;
+}
+
+.doctor-profile-info h6::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--primary-500);
+  border-radius: var(--radius-full);
 }
 
 .doctor-profile-info .info-row {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
-  margin-bottom: 0.8rem;
-  font-size: 1.07rem;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+  font-size: var(--text-base);
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-100);
+  transition: all var(--transition-fast);
 }
+
+.doctor-profile-info .info-row:hover {
+  background: var(--primary-50);
+  border-color: var(--primary-200);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
+}
+
 .doctor-profile-info .info-icon {
-  color: #1976d2;
-  font-size: 1.4rem;
+  color: var(--primary-500);
+  font-size: var(--text-xl);
+  min-width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .doctor-profile-section {
-  margin-top: 2rem;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 2px solid var(--gray-100);
 }
 
 .doctor-profile-section h6 {
-  color: #1a237e;
-  margin-bottom: 0.7rem;
-  font-size: 1.13rem;
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.doctor-profile-section h6::after {
+  display: none;
 }
 
 .doctor-profile-qualifications {
-  padding-left: 1.5rem;
-  color: #374151;
-  font-size: 1.05rem;
+  padding-left: var(--space-6);
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+
+.doctor-profile-qualifications li {
+  margin-bottom: var(--space-2);
+  position: relative;
+  padding-left: var(--space-4);
+}
+
+.doctor-profile-qualifications li::before {
+  content: '•';
+  color: var(--primary-500);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  font-size: var(--text-lg);
 }
 
 .doctor-profile-bio {
-  margin-top: 1.2rem;
-  color: #374151;
-  font-size: 1.08rem;
-  background: #e3f0ff;
-  border-radius: 8px;
-  padding: 1rem 1.2rem;
+  margin-top: var(--space-6);
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  background: linear-gradient(135deg, var(--primary-50) 0%, var(--secondary-50) 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  border: 1px solid var(--primary-100);
+  position: relative;
 }
 
-@media (max-width: 900px) {
+.doctor-profile-bio::before {
+  content: '"';
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-4);
+  font-size: var(--text-4xl);
+  color: var(--primary-300);
+  font-family: serif;
+  line-height: 1;
+}
+
+.doctor-profile-bio p {
+  margin: 0;
+  padding-left: var(--space-8);
+  font-style: italic;
+}
+
+/* Stats Section */
+.doctor-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--gray-100);
+}
+
+.stat-item {
+  text-align: center;
+  padding: var(--space-4);
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-200);
+  transition: all var(--transition-fast);
+}
+
+.stat-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-200);
+}
+
+.stat-number {
+  display: block;
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--primary-600);
+  margin-bottom: var(--space-1);
+}
+
+.stat-label {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Contact Information */
+.contact-info {
+  margin-top: var(--space-6);
+  padding: var(--space-6);
+  background: var(--gray-50);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--gray-200);
+}
+
+.contact-info h6 {
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  border-bottom: 2px solid var(--gray-200);
+  padding-bottom: var(--space-3);
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  padding: var(--space-3);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-100);
+  transition: all var(--transition-fast);
+}
+
+.contact-item:hover {
+  background: var(--primary-50);
+  border-color: var(--primary-200);
+  transform: translateX(2px);
+}
+
+.contact-icon {
+  color: var(--primary-500);
+  font-size: var(--text-lg);
+  min-width: 20px;
+}
+
+.contact-text {
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .doctor-profile-container {
+    margin: var(--space-6) var(--space-4);
+    padding: var(--space-6);
+    gap: var(--space-6);
+  }
+  
+  .doctor-profile-avatar {
+    flex: 1 1 280px;
+    padding: var(--space-6) var(--space-4);
+  }
+  
+  .doctor-profile-info {
+    flex: 1 1 400px;
+    padding: var(--space-6);
+  }
+}
+
+@media (max-width: 768px) {
   .doctor-profile-container {
     flex-direction: column;
-    padding: 1rem;
+    margin: var(--space-4);
+    padding: var(--space-4);
+    gap: var(--space-4);
   }
+  
+  .doctor-profile-avatar {
+    flex: none;
+    padding: var(--space-5) var(--space-4);
+  }
+  
+  .doctor-profile-avatar .MuiAvatar-root {
+    width: 120px !important;
+    height: 120px !important;
+    font-size: 3rem !important;
+  }
+  
+  .doctor-profile-avatar h2 {
+    font-size: var(--text-2xl);
+  }
+  
   .doctor-profile-info {
-    padding: 1rem;
+    flex: none;
+    padding: var(--space-5);
+  }
+  
+  .doctor-profile-info .info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-4);
+  }
+  
+  .doctor-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .doctor-profile-container {
+    margin: var(--space-2);
+    padding: var(--space-3);
+    border-radius: var(--radius-xl);
+  }
+  
+  .doctor-profile-avatar {
+    padding: var(--space-4) var(--space-3);
+  }
+  
+  .doctor-profile-avatar .MuiAvatar-root {
+    width: 100px !important;
+    height: 100px !important;
+    font-size: 2.5rem !important;
+  }
+  
+  .doctor-profile-info {
+    padding: var(--space-4);
+  }
+  
+  .doctor-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-info {
+    padding: var(--space-4);
+  }
+}
+
+/* Animation Classes */
+.doctor-profile-container {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.doctor-profile-avatar {
+  animation: slideIn 0.8s ease-out 0.2s both;
+}
+
+.doctor-profile-info {
+  animation: slideIn 0.8s ease-out 0.4s both;
+}
+
+/* Loading State */
+.doctor-profile-loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.doctor-profile-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 4px solid var(--gray-200);
+  border-top: 4px solid var(--primary-500);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 10;
+}
+
+/* Print Styles */
+@media print {
+  .doctor-profile-container {
+    box-shadow: none;
+    border: 1px solid var(--gray-300);
+    margin: 0;
+    padding: var(--space-4);
+  }
+  
+  .doctor-profile-avatar::before,
+  .doctor-profile-info::before {
+    display: none;
+  }
+  
+  .doctor-profile-avatar {
+    background: var(--bg-primary);
+    border: 1px solid var(--gray-300);
+  }
+  
+  .doctor-profile-info {
+    background: var(--bg-primary);
+    border: 1px solid var(--gray-300);
   }
 }
